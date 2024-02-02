@@ -5,7 +5,16 @@ import { ClientDto } from 'src/core/dtos/client.dto';
 @Injectable()
 export class AntiFraudService implements IAntiFraudService {
   getSuspicious(clientDto: ClientDto[]): ClientDto[] {
-    // Implement some logic here
-    return clientDto; //without ay filter
+    if (clientDto.length === 0) {
+      return [];
+    }
+    const median: number =
+      clientDto.reduce((acc, curr) => acc + curr.median, 0) / clientDto.length;
+    const upperBound = median + median / 2;
+    const lowerBound = median + median / 2;
+
+    return clientDto.filter((ele) => {
+      return ele.median > upperBound || ele.median < lowerBound;
+    });
   }
 }
