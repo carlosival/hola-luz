@@ -5,15 +5,16 @@ export class ClientDto {
   @IsNotEmpty()
   id: string;
 
+  @IsNotEmpty()
+  readings: Reading[];
+}
+
+class Reading {
   @IsString()
   @IsNotEmpty()
   period: string;
 
   @IsNumber()
   @IsNotEmpty()
-  reading: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  median: number;
+  reading: number[];
 }
