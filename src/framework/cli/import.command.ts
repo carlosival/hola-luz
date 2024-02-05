@@ -155,9 +155,3 @@ async function parseXML(dirFile: string) {
 
   return clients;
 }
-
-class ClientCvsModel {
-  client: string;
-  period: string;
-  reading: string;
-}
