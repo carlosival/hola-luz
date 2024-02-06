@@ -25,6 +25,12 @@ $ yarn run build
 $ node ./dist/main /absolute/path/to/file/2016-readings.xml
 $ node ./dist/main /absolute/path/to/file/2016-readings.csv
 
+# build and run using docker
+$ docker build -t hola-luz .
+$ docker run -it hola-luz sh
+$ yarn run start:cli 2016-readings.csv
+$ node dist/main 2016-readings.xml
+
 ## Test
 
 ```bash
