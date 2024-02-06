@@ -6,7 +6,7 @@ The solution employs a Hexagonal Architecture to handle different inputs seamles
 
 ## Installation
 
-Ensure you have [Dependencies] installed on your system. Clone the repository, navigate to the project folder, and follow the instructions below:
+Ensure you have node version >= v16 installed on your system or use Docker. Clone the repository, navigate to the project folder, and follow the instructions below:
 
 ```bash
 $ yarn install
