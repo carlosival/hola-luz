@@ -20,7 +20,7 @@ export class ParseFactory implements IParseFileFactory {
         return this.parseXmlService;
 
       default:
-        console.log('NO implemented');
+        return null;
     }
   }
 

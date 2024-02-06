@@ -31,8 +31,6 @@ $ node ./dist/main /absolute/path/to/file/2016-readings.csv
 # unit tests
 $ yarn run test
 
-# e2e tests
-$ yarn run test:e2e
 
 # test coverage
 $ yarn run test:cov
