@@ -1,7 +1,7 @@
 import { ClientSuspiciousDto } from '../dtos/client.suspicious.dto';
 
 export abstract class IClientUseCasesIN {
-  abstract getSuspicious(filePath: string): void;
+  abstract getSuspicious(filePath: string): Promise<void>;
 }
 
 export abstract class IClientUseCasesOUT {

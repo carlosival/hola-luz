@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ImportCommand } from './import.command';
-import { CsvModule } from 'nest-csv-parser';
+import { ClientUsesCasesModule } from '../../use-cases/client.uses-cases.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
-  imports: [CsvModule],
+  imports: [ClientUsesCasesModule, EventEmitterModule.forRoot()],
   providers: [ImportCommand],
 })
 export class CliModule {}

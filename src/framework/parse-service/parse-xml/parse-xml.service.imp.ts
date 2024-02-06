@@ -5,28 +5,28 @@ import * as fs from 'fs';
 import * as readline from 'node:readline';
 
 @Injectable()
-export class ParseCvsService implements IParseFileService {
+export class ParseXmlService implements IParseFileService {
   async parseFile(pathFile: string): Promise<Client[]> {
-    return await this.parseCSV(pathFile);
+    return await this.parseXML(pathFile);
   }
 
-  private async parseCSV(dirFile: string) {
+  private async parseXML(dirFile: string) {
     const clients: Client[] = [];
-    let counter = 0;
-    const offset = 1;
-    const delimeter = ',';
     const rl = readline.createInterface({
       input: fs.createReadStream(dirFile, 'utf-8'),
       crlfDelay: Infinity,
     });
 
+    const regex =
+      /<reading\s+clientID="([^"]+)"\s+period="([^"]+)">([^<]+)<\/reading>/;
+
     for await (const line of rl) {
       // Each line in the file will be successively available here as `line`.
-      if (counter >= offset) {
-        const row = line.split(delimeter);
-        const id = row[0];
-        const period = row[1];
-        const reading = row[2];
+      const match = line.match(regex);
+      if (match) {
+        const id = match[1];
+        const period = match[2];
+        const reading = match[3];
 
         const lastElement = clients.slice(-1);
         if (lastElement[0] && lastElement[0].id === id) {
@@ -39,7 +39,6 @@ export class ParseCvsService implements IParseFileService {
           clients.push(newClient);
         }
       }
-      counter++;
     }
 
     return clients;

@@ -1,20 +1,48 @@
 import { Injectable } from '@nestjs/common';
 import { IAntiFraudService } from '../../core/abstracts/anti-fraud-services';
-import { ClientDto } from 'src/core/dtos/client.dto';
+import { Client, Reading } from '../../core/entities/client.entity';
+import { ClientSuspiciousDto } from '../../core/dtos/client.suspicious.dto';
 
 @Injectable()
 export class AntiFraudService implements IAntiFraudService {
-  getSuspicious(clientDto: ClientDto[]): ClientDto[] {
-    if (clientDto.length === 0) {
-      return [];
-    }
-    const median: number =
-      clientDto.reduce((acc, curr) => acc + curr.median, 0) / clientDto.length;
-    const upperBound = median + median / 2;
-    const lowerBound = median + median / 2;
+  getSuspicious(client: Client[]): ClientSuspiciousDto[] {
+    return this.calculateSuspicous(client);
+  }
 
-    return clientDto.filter((ele) => {
-      return ele.median > upperBound || ele.median < lowerBound;
-    });
+  private calculateMedian(client: Client): number | null {
+    // Extract readings from objects
+    const readings = client.readings.map((reading) => reading.reading);
+
+    // Sort readings in ascending order
+    readings.sort((a, b) => a - b);
+
+    // Calculate the median
+    return Number(((readings[5] + readings[6]) / 2).toFixed(2));
+  }
+
+  private calculateSuspicous(clients: Client[]): ClientSuspiciousDto[] {
+    const suspiciousClients: ClientSuspiciousDto[] = [];
+
+    for (const client of clients) {
+      const clientMedian = this.calculateMedian(client);
+      const susReading = client.readings
+        .filter(
+          (reading: Reading) =>
+            reading.reading < clientMedian * 0.5 ||
+            reading.reading > clientMedian * 1.5,
+        )
+        .map((reading: Reading) => {
+          return {
+            id: client.id,
+            month: reading.period,
+            suspicious: reading.reading,
+            median: clientMedian,
+          };
+        });
+
+      suspiciousClients.push(...susReading);
+    }
+
+    return suspiciousClients;
   }
 }

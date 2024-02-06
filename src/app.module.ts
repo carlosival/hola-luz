@@ -1,13 +1,18 @@
 import { Module } from '@nestjs/common';
 import { CliModule } from './framework/cli/cli.module';
 
-/* import { ParseCvsService } from './framework/parse-service/parse-cvs/parse-cvs.service.imp';
-import { ParseXmlService } from './framework/parse-service/parse-xml/parse-xml.service'; */
-import { ControllersModule } from './controllers/controllers.module';
-import { PresentersModule } from './presenters/presenters.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { AntiFraudModule } from './services/anti-fraud/anti-fraud.module';
+import { ParseServiceModule } from './services/parses/parse-service.module';
+import { PresentationModule } from './services/presentation/presentation.module';
 
 @Module({
-  imports: [CliModule, ControllersModule, PresentersModule],
-  //providers: [ParseXmlService, ParseCvsService],
+  imports: [
+    CliModule,
+    EventEmitterModule,
+    AntiFraudModule,
+    ParseServiceModule,
+    PresentationModule,
+  ],
 })
 export class AppModule {}

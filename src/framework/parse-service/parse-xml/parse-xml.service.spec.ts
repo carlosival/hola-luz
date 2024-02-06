@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ParseXmlService } from './parse-xml.service';
+import { ParseXmlService } from './parse-xml.service.imp';
 
 describe('ParseXmlService', () => {
   let service: ParseXmlService;

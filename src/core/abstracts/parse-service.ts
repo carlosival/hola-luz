@@ -1,5 +1,5 @@
 import { Client } from '../entities/client.entity';
 
 export abstract class IParseFileService {
-  abstract parseFile(pathFile: string): Client[];
+  abstract parseFile(pathFile: string): Promise<Client[]>;
 }

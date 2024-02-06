@@ -16,9 +16,9 @@ export class ClientUseCases implements IClientUseCasesIN {
     private presentationService: IClientUseCasesOUT,
   ) {}
 
-  getSuspicious(filePath: string): void {
+  async getSuspicious(filePath: string): Promise<void> {
     const parse = this.parseFileFactory.getParseFile(filePath);
-    const clients: Client[] = parse.parseFile(filePath);
+    const clients: Client[] = await parse.parseFile(filePath);
     const suspiciuos: ClientSuspiciousDto[] =
       this.antiFraudService.getSuspicious(clients);
     this.presentationService.printSuspicious(suspiciuos);
