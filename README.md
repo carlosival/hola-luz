@@ -42,7 +42,7 @@ $ yarn run test:cov
 
 ## Stay in touch
 
-- Author - Carlos Martinez Ival(https://www.linkedin.com/in/carlos-martinez-ival-80b7bb107/)
+- Author - [Carlos Martinez Ival](https://www.linkedin.com/in/carlos-martinez-ival-80b7bb107/)
   
 ## Acknowledgments
 Inspiration, code snippets, etc.
